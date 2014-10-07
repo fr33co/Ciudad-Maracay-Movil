@@ -5,9 +5,9 @@
     id        = "com.catuche.CiudadMaracay"
     version   = "0.5.0">
 	
-	<name>SigueTransAragua</name>
+	<name>Ciudad Maracay</name>
 	<description>
-	    Aplicación Movil para el seguimiento de las unidades de TransAragua
+	    Aplicación Movil para Ciudad Maracay. Comunicación Patria
 	</description>
 	
 	<author href="https://www.catuche.com.ve" email="rodriguez.hectoralejandro@gmail.com">
