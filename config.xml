@@ -2,7 +2,7 @@
 
 <widget xmlns = "http://www.w3.org/ns/widgets"
     xmlns:gap = "http://phonegap.com/ns/1.0"
-    id        = "com.catuche.SigueTransAragua"
+    id        = "com.catuche.CiudadMaracay"
     version   = "0.5.0">
 	
 	<name>SigueTransAragua</name>
@@ -24,6 +24,5 @@
 	<gap:splash src="asset/splash/hdpi.png"  gap:platform="android" gap:density="hdpi" />
 	<gap:splash src="asset/splash/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
     
-    <gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
     <access origin="*"/>
 </widget>
