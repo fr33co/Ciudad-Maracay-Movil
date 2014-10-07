@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<widget xmlns = "http://www.w3.org/ns/widgets"
+    xmlns:gap = "http://phonegap.com/ns/1.0"
+    id        = "com.catuche.SigueTransAragua"
+    version   = "0.5.0">
+	
+	<name>SigueTransAragua</name>
+	<description>
+	    Aplicación Movil para el seguimiento de las unidades de TransAragua
+	</description>
+	
+	<author href="https://www.catuche.com.ve" email="rodriguez.hectoralejandro@gmail.com">
+	    Héctor Rodriguez V. -- Catuche
+	</author>
+
+    <icon src="asset/icons/36.png" gap:platform="android" gap:density="ldpi" />
+	<icon src="asset/icons/48.png" gap:platform="android" gap:density="mdpi" />
+	<icon src="asset/icons/72.png" gap:platform="android" gap:density="hdpi" />
+	<icon src="asset/icons/96.png" gap:platform="android" gap:density="xhdpi" />
+	
+	<gap:splash src="asset/splash/ldpi.png"  gap:platform="android" gap:density="ldpi" />
+	<gap:splash src="asset/splash/mdpi.png"  gap:platform="android" gap:density="mdpi" />
+	<gap:splash src="asset/splash/hdpi.png"  gap:platform="android" gap:density="hdpi" />
+	<gap:splash src="asset/splash/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+    
+    <gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
+    <access origin="*"/>
+</widget>
