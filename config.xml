@@ -23,6 +23,10 @@
 	<gap:splash src="asset/splash/mdpi.png"  gap:platform="android" gap:density="mdpi" />
 	<gap:splash src="asset/splash/hdpi.png"  gap:platform="android" gap:density="hdpi" />
 	<gap:splash src="asset/splash/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
-    
+   
+    <gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.NetworkManager" />
+    </feature>
     <access origin="*"/>
 </widget>
