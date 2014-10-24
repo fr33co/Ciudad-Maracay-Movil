@@ -1,20 +1,140 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Aragua Potencia 2013-2017</title>
-	<link rel="shortcut icon" href="favicon.ico">
-	<script src="public/js/jquery.min.js"></script>
-	<script type="text/javascript">   
-			$(document).ready(function(){
-				setTimeout(function(){
-					url = "http://catuche.com.ve:4000";
-					$(location).attr('href',url);
-				},100);
-			});		
-    </script>
-</head>
-<body>
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="css/ciudad_maracay.css" />
+        <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.4/jquery.mobile.structure-1.4.4.min.css" />
+        <link rel="stylesheet" href="css/FeedEk.css" />
+        <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script> 
+        <script src="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
+        <script src="js/FeedEk.js"></script> 
+        <title></title>
+    </head>
+    <body>
+       <!-- Home -->
+        <div data-role="page" id="home">
+            <div data-role="header" data-position="fixed" data-theme="b">
+                <h1>Ciudad Maracay</h1>
+                <a href="#refresh" id="refresh" data-rel="refresh" class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-refresh show-page-loading-msg" data-textonly="false" data-textvisible="true" data-msgtext="Cargando" data-inline="true" data-theme="b">Actualizar</a>
+                <!--<a href="#setting" data-rel="setting" class="ui-btn ui-btn-right ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-gear" data-transition="slidedown">Configurar</a>-->
+	        </div>
+            <div data-role="main" class="ui-content">
+                <div id="news"></div>        
+            </div>
+        </div>
+        <!-- Setting -->
+        <div data-role="page" id="setting">
+            <div data-role="header" data-position="fixed" data-theme="b">
+                <h1>Opciones</h1>
+                <a href="#home" data-rel="home" class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l">Volver</a>
+	        </div>
+	        <div data-role="main" class="ui-content"><br />
+                <label for="cant_news">Noticias a Mostrar:</label>
+                <input type="range" name="cant_news" id="cant_news" value="10" min="1" max="20"><br />
+                <label for="cant_min">Minutos al Refrescar:</label>
+                <input type="range" name="cant_min" id="cant_min" value="15" min="1" max="60"><br />
+                <label for="sha">Refrescar al Agitar:</label>
+	            <center><select name="shake" id="shake" data-role="slider">
+		            <option value="off">Off</option>
+		            <option value="on">On</option>
+	            </select></center>
+                <input type="button" id="save" value="Guardar" data-icon="check"><br />
+                <center><img src="img/catuche.png" width="30%" /></center>
+	        </div>
+        </div>
+        <!-- Pagina de la Noticia Individual -->
+        <div data-role="page" id="setting">
+            <div data-role="header" data-position="fixed" data-theme="b">
+                <h1>Opciones</h1>
+                <a href="#home" data-rel="home" class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l">Volver</a>
+	        </div>
+	        <div data-role="main" class="ui-content"><br />
+                <label for="cant_news">Noticias a Mostrar:</label>
+                <input type="range" name="cant_news" id="cant_news" value="10" min="1" max="20"><br />
+                <label for="cant_min">Minutos al Refrescar:</label>
+                <input type="range" name="cant_min" id="cant_min" value="15" min="1" max="60"><br />
+                <label for="sha">Refrescar al Agitar:</label>
+	            <center><select name="shake" id="shake" data-role="slider">
+		            <option value="off">Off</option>
+		            <option value="on">On</option>
+	            </select></center>
+                <input type="button" id="save" value="Guardar" data-icon="check"><br />
+                <center><img src="img/catuche.png" width="30%" /></center>
+	        </div>
+        </div>
+        <!-- Modal -->
+        <div data-role="page" id="dialogPage">
+            <div data-role="header" data-theme="b">
+                <h2>Ciudad Maracay</h2>
+            </div>
+            <div role="main" class="ui-content">
+                <p id="act" style="text-align: center;"></p>
+                <center><img src="img/catuche.png" width="30%" /></center>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+    </body>
 </html>
+<script type="text/javascript">
+var news = 10;
+var min  = 15;
+var watchID = null;
+$(document).ready(function(e){
+    mostrarFeed(news);
+    setInterval(function() {
+        mostrarFeed(news);
+	}, min * 60000) 
+    $("#setting").bind("pageshow", function() {
+        $("#cant_news").val(news).slider("refresh");
+        $("#cant_min").val(min).slider("refresh");
+    });
+    
+    // Guardar las Variables y regresar a home
+    $('#save').click(function(){
+        news = $("#cant_news").val();
+        min  = $("#cant_min").val();
+        actualizar();
+        mostrarFeed($("#cant_news").val());
+        $.mobile.changePage("#home", "slide", false, true);
+    });
+    
+    // Refrescar
+    $('#refresh').click(function(){
+        mostrarFeed(news);
+        actualizar();
+    });
+});
+
+function actualizar(){
+    $.mobile.changePage( "#dialogPage", { role: "dialog", transition: "flip" } );
+    $('#act').html("Noticias Actualizadas para " + getFechaHora());
+}
+// Mostrar Feeds
+function mostrarFeed(news){
+    $('#news').FeedEk({
+        FeedUrl: 'http://ciudadmcy.info.ve/?format=feed&type=rss',
+        MaxCount: news,
+        DescCharacterLimit: 350
+    });
+}
+// Mostrar Fecha
+function getFechaHora(fec){
+	var fec=new Date; 
+	var dia=fec.getDate(); 
+	var mes=fec.getMonth(); 
+	var anio=fec.getFullYear(); 
+	var horas = fec.getHours() ; 
+	var minutos = fec.getMinutes() ; 
+	var segundos = fec.getSeconds() ; 
+	if (dia<10) dia='0'+dia; 
+	if (mes<10) mes='0'+mes; 
+	if (horas <10) horas = "0" + horas; 
+	if (minutos <10) minutos = "0" + minutos; 
+	if (segundos <10) segundos = "0" + segundos; 
+    return dia+'/'+mes+'/'+anio+" a la "+horas+":"+minutos+":"+segundos;  	
+}
+</script>
